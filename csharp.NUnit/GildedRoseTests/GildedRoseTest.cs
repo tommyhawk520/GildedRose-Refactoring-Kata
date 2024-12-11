@@ -44,6 +44,15 @@ public class GildedRoseTest
     }
 
     [Test]
+    public void QualityOfAgedBrieIncreasesDoubleAfterSellinDate()
+    {
+        var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = -1, Quality = 10 } };
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+        Assert.That(items[0].Quality, Is.EqualTo(12));
+    }
+
+    [Test]
     public void QualityDoesNotExceed50()
     {
         var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 10, Quality = 50 } };
@@ -87,5 +96,14 @@ public class GildedRoseTest
         var app = new GildedRose(items);
         app.UpdateQuality();
         Assert.That(items[0].Quality, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void ConjouredItemQualityLowersby2()
+    {
+        var items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = 10, Quality = 10 } };
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+        Assert.That(items[0].Quality, Is.EqualTo(8));
     }
 }
